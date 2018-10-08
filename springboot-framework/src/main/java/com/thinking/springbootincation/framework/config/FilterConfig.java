@@ -1,0 +1,37 @@
+package com.thinking.springbootincation.framework.config;
+
+import com.google.common.collect.Maps;
+import com.thinking.springbootincation.framework.Filter.XssFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.DispatcherType;
+import java.util.Map;
+
+/**
+ * @Author：caoj
+ * @Description：
+ * @Date：Created in 2018/7/26
+ */
+@Component
+public class FilterConfig {
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Bean
+    public FilterRegistrationBean xssFilterRegistration()
+    {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        registration.setFilter(new XssFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("xssFilter");
+        registration.setOrder(Integer.MAX_VALUE);
+        Map<String, String> initParameters = Maps.newHashMap();
+        initParameters.put("excludes", "/system/notice/*");
+        registration.setInitParameters(initParameters);
+        return registration;
+    }
+
+
+}

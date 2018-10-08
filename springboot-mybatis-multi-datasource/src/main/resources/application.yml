@@ -1,0 +1,54 @@
+#serverconfig
+server:
+  port: 8346
+
+#log config
+logging:
+  level:
+    com.think.multi.datasource.dao: debug
+
+#mysql multi-data source config
+mysql:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    configLocation: classpath:/mybatis-config.xml
+    druidUserName: root
+    druidPassword: chargedot
+    master:
+      url: jdbc:mysql://127.0.0.1:3306/test_01?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: chargedot
+      driver-class-name: com.mysql.jdbc.Driver
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      logSlowSql: true
+    cluster:
+      url: jdbc:mysql://127.0.0.1:3306/test_02?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: chargedot
+      driver-class-name: com.mysql.jdbc.Driver
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      logSlowSql: true

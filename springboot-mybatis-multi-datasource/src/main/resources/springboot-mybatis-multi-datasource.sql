@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS `city`;
+CREATE TABLE `city` (
+`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '城市编号',
+`province_id` INT(10) UNSIGNED NOT NULL COMMENT '省份编号',
+`city_name` VARCHAR(25) DEFAULT NULL COMMENT '城市名称',
+`description` VARCHAR(25) DEFAULT NULL COMMENT '描述',
+PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT city VALUES (1 ,1,'上海市','徐汇区古美路1515号');
+
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE USER
+(
+id INT(10) UNSIGNED PRIMARY KEY NOT NULL COMMENT '用户编号' AUTO_INCREMENT,
+user_name VARCHAR(25) COMMENT '用户名称',
+description VARCHAR(25) COMMENT '描述'
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+INSERT USER VALUES (1 ,'think','他是一个幽默的人');
+
+SELECT id, province_id, city_name, description FROM city WHERE city_name = '上海市';
+

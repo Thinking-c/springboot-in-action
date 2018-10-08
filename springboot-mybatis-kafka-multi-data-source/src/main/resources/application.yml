@@ -1,0 +1,117 @@
+#spring properties
+spring:
+  profiles: local
+  application:
+    name: malfunctionService  #Service registers under this name
+  freemarker:
+    enabled: false            #Ignore Eureka dashboard FreeMarker templates
+  thymeleaf:
+    cache: false              #Allow Thymeleaf templates to be reloaded at runtime
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+  #kafka config
+  kafka:
+    bootstrap-servers: 192.168.1.243:9092
+    consumer:
+      group-id: malfunction
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  #redis config
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    pool:
+      max-active: 100
+      max-idle: 20
+      max-wait: 30000
+
+# Map the error path to error template (for Thymeleaf)
+error: path=/error
+
+#eureka config
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    instance:
+      preferIpAddress: true
+    registryFetchIntervalSeconds: 5
+    instanceInfoReplicationIntervalSeconds: 5
+    initialInstanceInfoReplicationIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8761/eureka/
+    fetchRegistry: true
+
+# Http Server
+server:
+  port: 8221
+
+#restTemplate time out config
+rest:
+  connectionRequestTimeout: 3000
+  readTimeout: 15000
+  connectTimeout: 3000
+
+#mybatis config
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+  mapper-locations: classpath:/com/chargedot/malfunction/dao/mapper/*.xml
+  type-aliases-package: com.chargedot.malfunction.dao.model
+
+#log config
+logging:
+  level:
+    com.chargedot.malfunction.dao.mapper: debug
+
+#multi-data source config
+mysql:
+  datasource:
+    readSize: 1
+    type: com.alibaba.druid.pool.DruidDataSource
+    mapperLocations: classpath:/com/chargedot/malfunction/dao/mapper/*.xml
+    configLocation: classpath:/mybatis-config.xml
+    typeAliasesPackage: classpath:/com/chargedot/malfunction/dao/model
+    write:
+      url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: chargedot
+      driver-class-name: com.mysql.jdbc.Driver
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+      logSlowSql: true
+    read:
+      url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: chargedot
+      driver-class-name: com.mysql.jdbc.Driver
+      minIdle: 5
+      maxActive: 10000
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      removeAbandoned: true
+      filters: stat
+      logSlowSql: true
